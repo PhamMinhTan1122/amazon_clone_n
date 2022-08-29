@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import '../../../Constants/global_variables.dart';
 import '../../../common/widget/custom_button.dart';
 import '../../../common/widget/custom_textfield.dart';
-import '../../../pages/home_page.dart';
 import '../services/auth_screen_ser.dart';
 
 enum Auth { signin, signup }
@@ -58,7 +57,7 @@ class _AuthScreenState extends State<AuthScreen> {
               //       },
               //       child: Text('Sign Up'));
               // }),
-              Text(
+              const Text(
                 'WELCOME TO AMAZON',
                 style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
               ),
@@ -66,7 +65,7 @@ class _AuthScreenState extends State<AuthScreen> {
                 tileColor: _auth == Auth.signup
                     ? GlobalVariales.backgroundColor
                     : GlobalVariales.greyBackgroundCOlor,
-                title: Text(
+                title: const Text(
                   'Create account',
                   style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                 ),
@@ -92,7 +91,8 @@ class _AuthScreenState extends State<AuthScreen> {
                     child: Column(
                       children: [
                         CustomTextField(
-                            controller: _nameController, hintText: 'Username'),
+                            controller: _nameController,
+                            hintText: 'Enter Username'),
                         SizedBox(height: 10),
                         CustomTextField(
                             hintText: 'Email', controller: _emailController),

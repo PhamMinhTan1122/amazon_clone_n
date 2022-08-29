@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+// String uri = 'https://minhtan.loca.lt';
+// String uri = 'https://buildapp.loca.lt/#';
 String uri = 'http://localhost:5000';
 
 class GlobalVariales {

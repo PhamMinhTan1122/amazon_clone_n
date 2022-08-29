@@ -6,6 +6,8 @@ const mongoose = require('mongoose');
 const authRouter = require('./routers/auth');
 const DB = "mongodb+srv://minhtan:masterminhtan@cluster0.lczbvig.mongodb.net/?retryWrites=true&w=majority"
 //INIT
+
+
 const PORT = 5000;
 const app = express();
 // app.use(
@@ -23,6 +25,7 @@ app.listen(PORT,"0.0.0.0", ()=>{
     console.log(`Connected at PORT ${PORT}`);
 
 })
+
 
 
 
