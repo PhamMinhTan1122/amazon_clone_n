@@ -1,15 +1,22 @@
 //IMPORT PACKAGE
-const express = require("express");
+const express = require('express');
 const mongoose = require('mongoose');
-
 //IMPORT FROM OTHER FILES
 const authRouter = require('./routers/auth');
 const DB = "mongodb+srv://minhtan:masterminhtan@cluster0.lczbvig.mongodb.net/?retryWrites=true&w=majority"
 //INIT
+const cors=require("cors");
+const corsOptions ={
+   origin:'*', 
+   credentials:true,            //access-control-allow-credentials:true
+   optionSuccessStatus:200,
+}
 
-
-const PORT = 5000;
 const app = express();
+app.use(cors(corsOptions))
+
+
+const PORT = process.env.PORT || 5000;
 // app.use(
 //     express.urlencoded({ extended: true })
 // );

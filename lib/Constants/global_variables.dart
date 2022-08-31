@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 
-// String uri = 'https://minhtan.loca.lt';
-// String uri = 'https://buildapp.loca.lt/#';
 String uri = 'http://localhost:5000';
+// String uri = 'http://amazon-clone-fake.herokuapp.com';
 
 class GlobalVariales {
   static const appBarGradient = LinearGradient(colors: [

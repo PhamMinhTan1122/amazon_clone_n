@@ -19,9 +19,11 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         title: 'Amazon Clone',
         theme: ThemeData(
-            colorScheme:
-                const ColorScheme.light(primary: GlobalVariales.secondaryColor),
-            scaffoldBackgroundColor: GlobalVariales.greyBackgroundCOlor,
+            colorSchemeSeed: const Color(0xff6750a4),
+            useMaterial3: true,
+            // colorScheme:
+            //     const ColorScheme.light(primary: GlobalVariales.secondaryColor),
+            // scaffoldBackgroundColor: GlobalVariales.greyBackgroundCOlor,
             appBarTheme: const AppBarTheme(
                 elevation: 0, iconTheme: IconThemeData(color: Colors.black))),
         onGenerateRoute: ((settings) => generateRoute(settings)),

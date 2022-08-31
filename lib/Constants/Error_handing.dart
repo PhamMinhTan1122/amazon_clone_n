@@ -13,12 +13,12 @@ void ErrorHandle(
       onSuccess();
       break;
     case 400:
-      showSnackBar(context, jsonDecode(response.body)['msg']);
+      showSnackBar(context, response.body.replaceAll("\"", ""));
       break;
     case 500:
-      showSnackBar(context, jsonDecode(response.body)['error']);
+      showSnackBar(context, response.body.replaceAll("\"", ""));
       break;
     default:
-      showSnackBar(context, response.body);
+      showSnackBar(context, response.body.replaceAll("\"", ""));
   }
 }

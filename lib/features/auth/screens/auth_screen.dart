@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-
 import '../../../Constants/global_variables.dart';
 import '../../../common/widget/custom_button.dart';
 import '../../../common/widget/custom_textfield.dart';
 import '../services/auth_screen_ser.dart';
+import 'package:flutter_pw_validator/flutter_pw_validator.dart';
 
 enum Auth { signin, signup }
 
@@ -22,9 +22,10 @@ class _AuthScreenState extends State<AuthScreen> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passController = TextEditingController();
   final TextEditingController _nameController = TextEditingController();
+  bool success = false;
+  Auth _auth = Auth.signup; // signup se dc chon lam mac dinh khi vao app
   @override
   void dispose() {
-    // TODO: implement dispose
     super.dispose();
     _emailController;
     _passController;
@@ -39,7 +40,13 @@ class _AuthScreenState extends State<AuthScreen> {
         name: _nameController.text);
   }
 
-  Auth _auth = Auth.signup; // signup se dc chon lam mac dinh khi vao app
+  void signInUser() {
+    authService.signInUser(
+        context: context,
+        email: _emailController.text,
+        password: _passController.text);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -97,9 +104,80 @@ class _AuthScreenState extends State<AuthScreen> {
                         CustomTextField(
                             hintText: 'Email', controller: _emailController),
                         SizedBox(height: 10),
-                        CustomTextField(
-                            controller: _passController, hintText: 'Password'),
-                        SizedBox(
+                        // CustomTextField(
+                        //     controller: _passController, hintText: 'Password'),
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 2.0),
+                                  child: TextFormField(
+                                      controller: _passController,
+                                      decoration: InputDecoration(
+                                        enabledBorder: OutlineInputBorder(
+                                            borderSide: const BorderSide(
+                                                color: Color.fromARGB(
+                                                    255, 207, 207, 207),
+                                                width: 2),
+                                            borderRadius:
+                                                BorderRadius.circular(5)),
+                                        floatingLabelStyle: const TextStyle(
+                                          color: Colors.black,
+                                          fontSize: 14,
+                                        ),
+                                        focusedBorder: OutlineInputBorder(
+                                          borderSide: BorderSide(
+                                              color: success
+                                                  ? Colors.green
+                                                  : GlobalVariales
+                                                      .secondaryColor,
+                                              width: 2),
+                                          borderRadius:
+                                              BorderRadius.circular(15),
+                                        ),
+                                        hintText: "Password",
+                                        border: const OutlineInputBorder(
+                                            borderSide: BorderSide()),
+                                      ),
+                                      validator: (val) {
+                                        if (val == null || val.isEmpty) {
+                                          return 'Enter your Password';
+                                        }
+                                      }),
+                                ),
+                                const SizedBox(
+                                  height: 5,
+                                ),
+                                FlutterPwValidator(
+                                  controller: _passController,
+                                  minLength: 8,
+                                  uppercaseCharCount: 1,
+                                  numericCharCount: 3,
+                                  specialCharCount: 1,
+                                  normalCharCount: 3,
+                                  width: 400,
+                                  height: 200,
+                                  onSuccess: () {
+                                    setState(() {
+                                      success = true;
+                                    });
+                                  },
+                                  onFail: () {
+                                    setState(() {
+                                      success = false;
+                                    });
+                                    print("NOT MATCHED");
+                                  },
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                        const SizedBox(
                           height: 10,
                         ),
                         CustomButton(
@@ -108,7 +186,6 @@ class _AuthScreenState extends State<AuthScreen> {
                               if (_signUpFormKey.currentState!.validate()) {
                                 signUpUser();
                               }
-                              print('Sign up success');
                             })
                       ],
                     ),
@@ -155,7 +232,9 @@ class _AuthScreenState extends State<AuthScreen> {
                         CustomButton(
                             text: 'Sign In',
                             onTap: () {
-                              print('Sign In success');
+                              if (_signInFormKey.currentState!.validate()) {
+                                signInUser();
+                              }
                             })
                       ],
                     ),
