@@ -9,6 +9,7 @@ enum Auth { signin, signup }
 
 class AuthScreen extends StatefulWidget {
   static const String routeName = '/auth-screen';
+  static final TextEditingController _nameController = TextEditingController();
   const AuthScreen({Key? key}) : super(key: key);
 
   @override
@@ -21,7 +22,6 @@ class _AuthScreenState extends State<AuthScreen> {
   final AuthService authService = AuthService();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passController = TextEditingController();
-  final TextEditingController _nameController = TextEditingController();
   bool success = false;
   Auth _auth = Auth.signup; // signup se dc chon lam mac dinh khi vao app
   @override
@@ -29,7 +29,7 @@ class _AuthScreenState extends State<AuthScreen> {
     super.dispose();
     _emailController;
     _passController;
-    _nameController;
+    AuthScreen._nameController;
   }
 
   void signUpUser() {
@@ -37,7 +37,7 @@ class _AuthScreenState extends State<AuthScreen> {
         context: context,
         email: _emailController.text,
         password: _passController.text,
-        name: _nameController.text);
+        name: AuthScreen._nameController.text);
   }
 
   void signInUser() {
@@ -92,18 +92,18 @@ class _AuthScreenState extends State<AuthScreen> {
               if (_auth == Auth.signup)
                 Container(
                   color: GlobalVariales.backgroundColor,
-                  padding: EdgeInsets.all(10),
+                  padding: const EdgeInsets.all(10),
                   child: Form(
                     key: _signUpFormKey,
                     child: Column(
                       children: [
                         CustomTextField(
-                            controller: _nameController,
+                            controller: AuthScreen._nameController,
                             hintText: 'Enter Username'),
-                        SizedBox(height: 10),
+                        const SizedBox(height: 10),
                         CustomTextField(
                             hintText: 'Email', controller: _emailController),
-                        SizedBox(height: 10),
+                        const SizedBox(height: 10),
                         // CustomTextField(
                         //     controller: _passController, hintText: 'Password'),
                         Column(
@@ -147,6 +147,7 @@ class _AuthScreenState extends State<AuthScreen> {
                                         if (val == null || val.isEmpty) {
                                           return 'Enter your Password';
                                         }
+                                        return null;
                                       }),
                                 ),
                                 const SizedBox(
@@ -160,7 +161,7 @@ class _AuthScreenState extends State<AuthScreen> {
                                   specialCharCount: 1,
                                   normalCharCount: 3,
                                   width: 400,
-                                  height: 200,
+                                  height: 150,
                                   onSuccess: () {
                                     setState(() {
                                       success = true;
@@ -195,7 +196,7 @@ class _AuthScreenState extends State<AuthScreen> {
                 tileColor: _auth == Auth.signin
                     ? GlobalVariales.backgroundColor
                     : GlobalVariales.greyBackgroundCOlor,
-                title: Text(
+                title: const Text(
                   'Sign in',
                   style: TextStyle(fontWeight: FontWeight.bold),
                 ),
@@ -213,7 +214,7 @@ class _AuthScreenState extends State<AuthScreen> {
               if (_auth == Auth.signin)
                 Container(
                   color: GlobalVariales.backgroundColor,
-                  padding: EdgeInsets.all(10),
+                  padding: const EdgeInsets.all(10),
                   child: Form(
                     key: _signInFormKey,
                     child: Column(
@@ -223,10 +224,10 @@ class _AuthScreenState extends State<AuthScreen> {
                         // SizedBox(height: 10),
                         CustomTextField(
                             hintText: 'Email', controller: _emailController),
-                        SizedBox(height: 10),
+                        const SizedBox(height: 10),
                         CustomTextField(
                             controller: _passController, hintText: 'Password'),
-                        SizedBox(
+                        const SizedBox(
                           height: 10,
                         ),
                         CustomButton(
